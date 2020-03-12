@@ -24,7 +24,7 @@ The POM contains all related dependencies
 
 ## dependencies
 The program uses tbx2rdf project (https://github.com/cimiano/tbx2rdf) developed in LIDER project
-The program also uses https://github.com/fazleh2010/browser.git a user friendly browser to browse terminologues
+The program also uses (https://github.com/fazleh2010/browser.git) a user friendly browser to browse terminologues
 
 
 ## Author
