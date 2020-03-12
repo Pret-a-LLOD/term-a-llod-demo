@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /home/scadmin/projects/tbx2rdf
+docker build . -t "tbx2rdf_test"
+
