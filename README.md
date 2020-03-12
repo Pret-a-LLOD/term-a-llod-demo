@@ -18,13 +18,13 @@ http://localhost/8080
 
 ```
 
-The download status of each url of the `links.txt` file is transformed into a separate element. 
 
 ## pom.xml
 The POM contains all related dependencies
 
 ## dependencies
-The program is tbx2rdf project developed in LIDER project as dependency (https://github.com/cimiano/tbx2rdf)
+The program uses tbx2rdf project (https://github.com/cimiano/tbx2rdf) developed in LIDER project
+The program also uses https://github.com/fazleh2010/browser.git a user friendly browser to browse terminologues
 
 
 ## Author
