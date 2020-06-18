@@ -6,17 +6,15 @@ A system for transforming and publishing terminologies as linked data which reli
 Installation
 ------------
 install docker
+
+Run
+------------
 docker build . -t debug:latest
 docker run -p 8080:8080 -v ../server/:/tmp/server/ -v ../virtuoso_data/:/virtuoso_data/ -it debug:latest
 
 User interface
 ------------
 http://localhost/8080
-```
-
-```snapshot
-
-```
 
 
 ## pom.xml
