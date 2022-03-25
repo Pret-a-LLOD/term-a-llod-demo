@@ -5,7 +5,7 @@
  */
 package browser.termallod.core.termbase;
 
-import browser.termallod.app.Parameter;
+import browser.termallod.core.Parameter;
 import static browser.termallod.core.sparql.SparqlEndpoint.query_writtenRep;
 import static browser.termallod.core.sparql.SparqlEndpoint.query_writtenRep_lang;
 import browser.termallod.core.sparql.CurlSparqlQuery;
@@ -37,9 +37,8 @@ public class TermListMatcher {
 
     private Map<String, Set<TermDetail>> matchedTermsInto = new TreeMap<String, Set<TermDetail>>();
 
-    public TermListMatcher(Parameter parameter) {
-        TermLists yourTerminology = null;
-        TermLists otherTerminology = null;
+    public TermListMatcher(Parameter parameter) throws IOException, Exception {
+
         String myTermSparqlEndpoint = parameter.getMyTermSparqlEndpoint();
         String otherTermSparqlEndpoint = parameter.getOtherTermSparqlEndpoint();
         String localLanguages = parameter.getLocalLangJson();
@@ -50,41 +49,32 @@ public class TermListMatcher {
 
         //for (String langCode : remoteLanguages) {
         //System.out.println("langCode:" + langCode);
-        try {
-            yourTerminology = curlSparqlQuery.findListOfTerms(myTermSparqlEndpoint, query_writtenRep, "myTerminology", true);
-            otherTerminology = curlSparqlQuery.findListOfTerms(otherTermSparqlEndpoint, query_writtenRep, "otherTerminology", true);
-            Set<String> matchedTerms = match(yourTerminology, otherTerminology);
-            //System.out.println(matchedTerms);
-            //Set<TermDetail> termDetails = new HashSet<TermDetail>();
-            for (String term : matchedTerms) {
-                TermDetail localTermDetail = yourTerminology.getTerms().get(term);
-                TermDetail remoteTermDetail = otherTerminology.getTerms().get(term);
-                String otherTerminologyName = getTerminologyName(remoteTermDetail.getTermUrl());
-                TermDetail linkedTermDetail = new TermDetail(term, localTermDetail.getTermUrl(), otherTerminologyName, remoteTermDetail.getTermUrl());
-                //System.out.println("linkedTermDetail:" + linkedTermDetail);
-                if (localTermDetail.getLanguage().contains(remoteTermDetail.getLanguage())) {
-                    String insertSparql = "SPARQL INSERT DATA {\n"
-                            + "GRAPH <http://tbx2rdf.lider-project.eu/> {\n"
-                            + "<" + localTermDetail.getTermUrl() + "> <http://www.w3.org/ns/lemon/ontolex#sameAs> <" + remoteTermDetail.getTermUrl() + ">\n"
-                            + "} };";
-                    //System.out.println("insertSparql:" + insertSparql);
-                    String rdfLine = "\n\n<" + localTermDetail.getTermUrl() + ">\n"
-                            + "      ontolex:sameAs <" + remoteTermDetail.getTermUrl() + "> .\n";
-                    //System.out.println("rdfLine file:" + rdfLine);
-                    
-                    FileRelatedUtils.writeSparqlToFile(parameter.getInsertFileVirtuoso(), insertSparql);
-                    System.out.println("SPARQL inserted in virtusos file!!!!");
-                    FileRelatedUtils.appendToFile(parameter.getInsertFileRdf(), rdfLine);
-                    System.out.println("RDF is updated and zipped!!!!");
-                    FileRelatedUtils.zipFile(parameter.getInsertFileRdf(),".gz");
-                    System.out.println("RDF fill is zipped!!!!");
-                }
+        TermLists yourTerminology = curlSparqlQuery.findListOfTerms(myTermSparqlEndpoint, query_writtenRep, "myTerminology", true);
+        TermLists otherTerminology = curlSparqlQuery.findListOfTerms(otherTermSparqlEndpoint, query_writtenRep, "otherTerminology", true);
+        Set<String> matchedTerms = match(yourTerminology, otherTerminology);
+        //System.out.println(matchedTerms);
+        //Set<TermDetail> termDetails = new HashSet<TermDetail>();
+        for (String term : matchedTerms) {
+            TermDetail localTermDetail = yourTerminology.getTerms().get(term);
+            TermDetail remoteTermDetail = otherTerminology.getTerms().get(term);
+            String otherTerminologyName = getTerminologyName(remoteTermDetail.getTermUrl());
+            TermDetail linkedTermDetail = new TermDetail(term, localTermDetail.getTermUrl(), otherTerminologyName, remoteTermDetail.getTermUrl());
+            //System.out.println("linkedTermDetail:" + linkedTermDetail);
+            if (localTermDetail.getLanguage().contains(remoteTermDetail.getLanguage())) {
+                /*String insertSparql = "SPARQL INSERT DATA {\n"
+                        + "GRAPH <http://tbx2rdf.lider-project.eu/> {\n"
+                        + "<" + localTermDetail.getTermUrl() + "> <http://www.w3.org/ns/lemon/ontolex#sameAs> <" + remoteTermDetail.getTermUrl() + ">\n"
+                        + "} };";*/
+                
+       
+                String rdfLine="\n\n<" + localTermDetail.getTermUrl() + ">\n"
+                               + "      ontolex:sameAs <" + remoteTermDetail.getTermUrl() + "> .\n";
 
+                FileRelatedUtils.appendToFile(parameter.getInsertFile(), rdfLine);
+                System.out.println("SPARQL inserted in RDF!!!!" );
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TermListMatcher.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-        }
 
+        }
         //}
     }
 

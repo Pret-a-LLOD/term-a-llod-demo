@@ -1,1 +1,1 @@
-electron_vacancy = http://tbx2rdf.lider-project.eu/data/YourNameSpace/electron+vacancy-EN
+electron_vacancy = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/electron+vacancy-EN

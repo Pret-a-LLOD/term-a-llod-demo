@@ -5,8 +5,8 @@
  */
 package browser.termallod.utils;
 
-import browser.termallod.app.BrowserMain;
-import browser.termallod.core.LangPairManager;
+import browser.termallod.core.BrowserMain;
+import browser.termallod.core.language.LangPairManager;
 import browser.termallod.core.termbase.TermDetail;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,7 +34,6 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -44,6 +43,17 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
  * @author elahi
  */
 public class FileRelatedUtils {
+    
+    public  static String BASE_PATH = "src/java/resources/data/";
+    public  static String OUTPUT_PATH = BASE_PATH + "/output/";
+    public  static String INPUT_PATH = BASE_PATH + "/input/";
+    public  static String CONFIG_PATH = BASE_PATH + "/conf/";
+    public  static String TEMPLATE_PATH = BASE_PATH + "/template/";
+
+    public static void main(String[] args) {
+        
+        zipFile("/Users/elahi/demo/src/java/resources/data/template/JsFormat.js");
+    }
 
     public static File[] getFiles(String fileDir, String ntriple) throws Exception {
         File dir = new File(fileDir);
@@ -340,7 +350,7 @@ public class FileRelatedUtils {
         return languageFiles;
     }*/
 
-    /*public static Map<String, List<File>> getLanguageFiles(List<File> inputfiles, String model_extension, Boolean alternativeFlag) {
+ /*public static Map<String, List<File>> getLanguageFiles(List<File> inputfiles, String model_extension, Boolean alternativeFlag) {
         Map<String, List<File>> languageFiles = new HashMap<String, List<File>>();
         for (File file : inputfiles) {
             String langCode = NameExtraction.getLanCode(file, model_extension);
@@ -357,7 +367,6 @@ public class FileRelatedUtils {
         }
         return languageFiles;
     }*/
-
     public static void deleteDirectory(String dir) throws IOException {
         FileUtils.deleteDirectory(new File(dir));
     }
@@ -405,81 +414,6 @@ public class FileRelatedUtils {
         }
 
     }
-    
-    public static void appendToFile(String file, String sparqlEnd) throws IOException {
-        FileWriter fileWriter;
-        fileWriter = new FileWriter(file, true);
-        BufferedWriter bufferFileWriter = new BufferedWriter(fileWriter);
-        bufferFileWriter.append(sparqlEnd);
-        bufferFileWriter.newLine();
-        bufferFileWriter.close();
-
-    }
-
-    public static Boolean zipFile(String inputFilePath,String notation) {
-        String outputFilePathLocation=null;
-        try {
-            File file = new File(inputFilePath);
-            outputFilePathLocation=file.getParent();
-            String zipFileName = outputFilePathLocation+File.separator+file.getName().concat(notation);
-            //System.out.println("zip file: "+zipFileName);
-            FileOutputStream fos = new FileOutputStream(zipFileName);
-            ZipOutputStream zos = new ZipOutputStream(fos);
-
-            zos.putNextEntry(new ZipEntry(file.getName()));
-
-            byte[] bytes = Files.readAllBytes(Paths.get(inputFilePath));
-            zos.write(bytes, 0, bytes.length);
-            zos.closeEntry();
-            zos.close();
-            return true;
-
-        } catch (FileNotFoundException ex) {
-            System.err.format("The file %s does not exist", inputFilePath);
-            return false;
-        } catch (IOException ex) {
-            System.err.println("I/O error: " + ex);
-            return false;
-        }
-    }
-    
-    public static void unzip(String zipFilePath, String destDir) {
-        File dir = new File(destDir);
-        // create output directory if it doesn't exist
-        if(!dir.exists()) dir.mkdirs();
-        FileInputStream fis;
-        //buffer for read and write data to file
-        byte[] buffer = new byte[1024];
-        try {
-            fis = new FileInputStream(zipFilePath);
-            ZipInputStream zis = new ZipInputStream(fis);
-            ZipEntry ze = zis.getNextEntry();
-            while(ze != null){
-                String fileName = ze.getName();
-                File newFile = new File(destDir + File.separator + fileName);
-                System.out.println("Unzipping to "+newFile.getAbsolutePath());
-                //create directories for sub directories in zip
-                new File(newFile.getParent()).mkdirs();
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                fos.write(buffer, 0, len);
-                }
-                fos.close();
-                //close this ZipEntry
-                zis.closeEntry();
-                ze = zis.getNextEntry();
-            }
-            //close last ZipEntry
-            zis.closeEntry();
-            zis.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-    }
-    
 
     public void writeINFile(String insertFile, String term, String localTermUrl, String remoteTermUrl) throws IOException {
         Map<String, String> element = new HashMap<String, String>();
@@ -498,15 +432,43 @@ public class FileRelatedUtils {
         }
 
     }
-    
-    public static void writeSparqlToFile(String file, String sparqlEnd) throws IOException {
-        FileWriter fileWriter;
-        fileWriter = new FileWriter(file, true);
-        BufferedWriter bufferFileWriter = new BufferedWriter(fileWriter);
-        bufferFileWriter.append(sparqlEnd);
-        bufferFileWriter.newLine();
-        bufferFileWriter.close();
 
+    public static void appendToFile(String file, String sparqlEnd) {
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter(file, true);
+            BufferedWriter bufferFileWriter = new BufferedWriter(fileWriter);
+            bufferFileWriter.append(sparqlEnd);
+            bufferFileWriter.newLine();
+            bufferFileWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(BrowserMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static Boolean zipFile(String filePath) {
+        try {
+            File file = new File(filePath);
+            String zipFileName = file.getName().concat(".zip");
+
+            FileOutputStream fos = new FileOutputStream(zipFileName);
+            ZipOutputStream zos = new ZipOutputStream(fos);
+
+            zos.putNextEntry(new ZipEntry(file.getName()));
+
+            byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+            zos.write(bytes, 0, bytes.length);
+            zos.closeEntry();
+            zos.close();
+            return true;
+
+        } catch (FileNotFoundException ex) {
+            System.err.format("The file %s does not exist", filePath);
+            return false;
+        } catch (IOException ex) {
+            System.err.println("I/O error: " + ex);
+            return false;
+        }
     }
 
 }

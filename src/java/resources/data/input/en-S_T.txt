@@ -1,5 +1,5 @@
-Schottky_junction = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Schottky+junction-EN
-thick_crystalline_material = http://tbx2rdf.lider-project.eu/data/YourNameSpace/thick+crystalline+material-EN
-slice = http://tbx2rdf.lider-project.eu/data/YourNameSpace/slice-EN
-thin_film = http://tbx2rdf.lider-project.eu/data/YourNameSpace/thin+film-EN
-Schottky_barrier = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Schottky+barrier-EN
+Schottky_junction = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/Schottky+junction-EN
+thick_crystalline_material = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/thick+crystalline+material-EN
+slice = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/slice-EN
+thin_film = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/thin+film-EN
+Schottky_barrier = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/Schottky+barrier-EN

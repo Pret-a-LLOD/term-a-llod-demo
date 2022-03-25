@@ -1,1 +1,1 @@
-dope = http://tbx2rdf.lider-project.eu/data/YourNameSpace/dope-EN
+dope = http://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/data/solarenergy/dope-EN

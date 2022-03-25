@@ -5,7 +5,7 @@
  */
 package browser.termallod.core.sparql;
 
-import browser.termallod.app.Parameter;
+import browser.termallod.core.Parameter;
 import browser.termallod.core.termbase.TermSubjectInfo;
 import browser.termallod.core.termbase.TermDetail;
 import browser.termallod.core.termbase.TermLists;
@@ -56,7 +56,7 @@ public class CurlSparqlQuery {
         //System.out.println("!!!!!!!!!!result!!!!!!!!!!!!!!!");
         //System.out.println(result);
         TermDetail termDetail = this.parseResults(result, 1,givenLang);
-        //System.out.println("term detail:"+termDetail);
+        System.out.println("term detail:"+termDetail);
         String termLinkSparql = SparqlQuery.getTermLinks(termDetail.getTermUrl());
         result = this.executeSparqlQuery(endpoint, termLinkSparql);
         TermDetail link = this.parseResults(result, 2,givenLang);

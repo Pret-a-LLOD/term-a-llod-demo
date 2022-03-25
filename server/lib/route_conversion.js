@@ -63,6 +63,9 @@ module.exports = exports = function(app) {
         data.output = { "path": conversionTarget, "stat": !!(await fsp.stat(conversionTarget)) };
         data.links.push({'path': './files/current.ttl', 'title': 'RDF file', "type": "download"});
 
+        data.output = { "path": turtleTarget, "stat": !!(await fsp.stat(turtleTarget)) };
+	data.links.push({'path': './files/current.ttl.gz', 'title': 'zipped turtle file', "type": "download"});
+	
         /*var data = await fsp.readFile(conversionTarget);
         data = data.toString();
         console.log(data);*/
@@ -74,7 +77,8 @@ async function rdf2gzip(data) {
 	//const cmd = "rapper -o ntriples " + conversionTarget + " | gzip >> " + turtleTarget;
 	//const execOptions = {cwd: "/tmp", shell: true};
 	//const cmd = "gzip -f " + conversionTarget;
-        const cmd = "gzip -c " + conversionTarget+ " > "+ turtleTarget;
+	
+       /* const cmd = "gzip  -f + conversionTarget;
 	const cmdArgs = []
 	const execOptions = {cwd: "/tmp/server", "shell": true}; //, stdout: process.stderr, stderr: process.stderr};
 	var result = null;
@@ -98,10 +102,12 @@ async function rdf2gzip(data) {
 		data.status = 'failed';
 		return;
 	}
+
 	data.status = 'success';
 	data.output = { "path": turtleTarget, "stat": !!(await fsp.stat(turtleTarget)) };
 	data.links.push({'path': './files/current.ttl.gz', 'title': 'zipped turtle file', "type": "download"});
-	return true;
+	*/
+         return true;
 }
 
 async function rdf2nt(data) {
@@ -184,9 +190,9 @@ const pipeline = [
 	{"name": "tbx to rdf",
 	"function": tbx2rdf,
     "indicator": "/tmp/server/uploads/tbx2rdf.done"},
-    {"name": "rdf to ttl.gz",
+    /*{"name": "rdf to ttl.gz",
     "function": rdf2gzip,
-    "indicator": "/tmp/server/uploads/rdf2gzip.done"},
+    "indicator": "/tmp/server/uploads/rdf2gzip.done"},*/
 	{"name": "virtuoso backend configuration",
 	"function": writeVirtuosoBackend,
     "indicator": "/tmp/server/uploads/virt_backend.done"},
@@ -327,11 +333,6 @@ function getFile(req, fieldname) {
     return null;
 }
 
-app.get("/initialize", async (req, res, next) => {
-    res.status(401).send('invalid method, endpoint requires a POST request');
-});
-
-
 app.get("/sparql", async (req, res, next) => {
      res.redirect('http://localhost:8080/status?view=sparql');
 });
@@ -340,45 +341,62 @@ app.get("/list", async (req, res, next) => {
      res.redirect('http://localhost:8080/describe');
 });
 
+app.get("/initialize", async (req, res, next) => {
+    res.status(401).send('invalid method, endpoint requires a POST request');
+});
 
 
-app.get("/files/current.ttl.gz", async (req, res, next) => {
 
-console.log(" inside into...../files/current.ttl.gz");
-        const cmd = "gzip -c " + conversionTarget+ " > "+ turtleTarget;
+//var AdmZip = require('adm-zip');
+/* app.get("/files/current.ttl.gz", async (req, res, next) => {
+    	console.log(" inside into...../files/current.ttl.gz");
+
+//const conversionTarget = "/tmp/server/uploads/current.ttl";
+//const turtleTarget = "/tmp/server/uploads/current.ttl.gz";
+
+
+     const zip = new AdmZip();
+     zip.addLocalFile(conversionTarget);
+    
+ 
+    // Define zip file name
+    const downloadName = `current.ttl.zip`;
+ 
+    const data = zip.toBuffer();
+ 
+    // save file zip in root directory
+     zip.writeZip("/tmp/server/uploads/"+downloadName);
+    
+    // code to download zip file
+ 
+    res.set('Content-Type','application/octet-stream');
+    res.set('Content-Disposition',`attachment; filename=${downloadName}`);
+    res.set('Content-Length',data.length);
+    res.send(data);
+
+        const cmd = "gzip -f + conversionTarget;
         const cmdArgs = []
         const execOptions = {cwd: "/tmp/server", "shell": true}; //, stdout: process.stderr, stderr: process.stderr};
         var result = null;
         mstatus.logstatus("starting execution of rdf2gzip");
-        const filePath="/tmp/server/uploads/";
-        const fileName ="current.ttl.gz";
-
 
         try {
-
-                  if (fs.existsSync(filePath + fileName)) {
-                        console.log("The file exists.");
-                        res.download(filePath, fileName);
-
-                    } else {
-                        console.log('The file does not exist.');
-                        result = await streamExec("rdf2gzip", cmd, cmdArgs, execOptions);
-
-                        if (result.code != 0) {
+                result = await streamExec("rdf2gzip", cmd, cmdArgs, execOptions);
+                if (result.code != 0) {
                         throw Error("exit code != 0");
-                         }
-                        res.download(filePath, fileName);
-                        mstatus.logstatus("rdf2gzip exit code " + result.code);
-                    }
+                }
+                mstatus.logstatus("rdf2gzip exit code " + result.code);
+                // data.message = "123\n4541\nimi1ko"
+                // throw Error("test");
 
         } catch (errconv) {
                 mstatus.logstatus("rdf2gzip error:", errconv);
+               
                 return;
         }
-    
+
 });
-
-
+*/
 
 
 app.post('/initialize', upload.any(), async (req, res, next) => {
