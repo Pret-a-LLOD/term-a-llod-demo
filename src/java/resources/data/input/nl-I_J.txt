@@ -1,0 +1,6 @@
+Johansson,_T.B. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Johansson%2C+T.B.-NL
+InterConnect = http://tbx2rdf.lider-project.eu/data/YourNameSpace/InterConnect-NL
+JVC_JVC = http://tbx2rdf.lider-project.eu/data/YourNameSpace/JVC+JVC-NL
+IATE = http://tbx2rdf.lider-project.eu/data/YourNameSpace/IATE-NL
+John,_V. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/John%2C+V.-NL
+Johnson,_G. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Johnson%2C+G.-NL

@@ -1,0 +1,5 @@
+Euroinvester = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Euroinvester-NL
+FOM = http://tbx2rdf.lider-project.eu/data/YourNameSpace/FOM-NL
+Ecolis = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Ecolis-NL
+ECN2007 = http://tbx2rdf.lider-project.eu/data/YourNameSpace/ECN2007-NL
+ECN = http://tbx2rdf.lider-project.eu/data/YourNameSpace/ECN-NL

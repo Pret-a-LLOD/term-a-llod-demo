@@ -1,0 +1,3 @@
+n-doping = http://tbx2rdf.lider-project.eu/data/YourNameSpace/n-doping-EN
+n-type_doping = http://tbx2rdf.lider-project.eu/data/YourNameSpace/n-type+doping-EN
+n-type_semiconductor = http://tbx2rdf.lider-project.eu/data/YourNameSpace/n-type+semiconductor-EN

@@ -1,0 +1,7 @@
+Renkema,_J. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Renkema%2C+J.-NL
+Ryckevelde = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Ryckevelde-NL
+Rittal = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Rittal-NL
+Roger,_A.M. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Roger%2C+A.M.-NL
+Raymond,_C.F. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Raymond%2C+C.F.-NL
+Rickerby,_D.G. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Rickerby%2C+D.G.-NL
+Redfield,_D. = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Redfield%2C+D.-NL

@@ -1,0 +1,5 @@
+Schottky_junction = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Schottky+junction-EN
+thick_crystalline_material = http://tbx2rdf.lider-project.eu/data/YourNameSpace/thick+crystalline+material-EN
+slice = http://tbx2rdf.lider-project.eu/data/YourNameSpace/slice-EN
+thin_film = http://tbx2rdf.lider-project.eu/data/YourNameSpace/thin+film-EN
+Schottky_barrier = http://tbx2rdf.lider-project.eu/data/YourNameSpace/Schottky+barrier-EN

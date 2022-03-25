@@ -1,0 +1,2 @@
+amorphous_semiconductor = http://tbx2rdf.lider-project.eu/data/YourNameSpace/amorphous+semiconductor-EN
+amorphous_silicon = http://tbx2rdf.lider-project.eu/data/YourNameSpace/amorphous+silicon-EN

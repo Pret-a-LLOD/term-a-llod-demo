@@ -1,0 +1,4 @@
+p-type_semiconductor = http://tbx2rdf.lider-project.eu/data/YourNameSpace/p-type+semiconductor-EN
+p-n_junction = http://tbx2rdf.lider-project.eu/data/YourNameSpace/p-n+junction-EN
+p-type_doping = http://tbx2rdf.lider-project.eu/data/YourNameSpace/p-type+doping-EN
+p-doping = http://tbx2rdf.lider-project.eu/data/YourNameSpace/p-doping-EN
