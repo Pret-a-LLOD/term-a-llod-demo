@@ -7,11 +7,11 @@ This page provides instructions on how to run the term-a-llod tool to publish an
 Install docker (https://docs.docker.com/engine/install/)
 1. Download the image of term-a-llod. 
 ```
-docker pull elahi/term-a-llod:latest
+docker pull pretallod/term-a-llod:latest
 ```
 2. Run the image as a container.
 ```
-docker run -p 8080:8080 -it elahi/term-a-llod:latest
+docker run -p 8080:8080 -it pretallod/term-a-llod:latest
 ```
 Go to http://localhost:8080/status?view=status and the interface will be shown on your browser.
 
